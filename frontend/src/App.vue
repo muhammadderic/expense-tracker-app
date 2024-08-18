@@ -1,3 +1,7 @@
+<script setup>
+  import MainHeader from './components/MainHeader.vue'
+</script>
+
 <template>
-  <h1>Hello Deric</h1>
+  <MainHeader/>  
 </template>
