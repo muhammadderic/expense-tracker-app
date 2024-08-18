@@ -1,5 +1,6 @@
 <script setup>
-  import IncomeExpenses from './components/IncomeExpenses.vue';
+  import AddTransaction from './components/AddTransaction.vue';
+import IncomeExpenses from './components/IncomeExpenses.vue';
 import MainBalance from './components/MainBalance.vue';
   import MainHeader from './components/MainHeader.vue'
 import TransactionsList from './components/TransactionsList.vue';
@@ -15,5 +16,6 @@ import TransactionsList from './components/TransactionsList.vue';
       { id: 2, text: 'Book', amount: -10, },
       { id: 3, text: 'Camera', amount: -150 }
     ]"/>
+    <AddTransaction/>
   </div>
 </template>
