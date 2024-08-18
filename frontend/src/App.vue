@@ -5,7 +5,7 @@ import MainBalance from './components/MainBalance.vue';
 import MainHeader from './components/MainHeader.vue'
 import TransactionsList from './components/TransactionsList.vue';
 
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import {useToast} from 'vue-toastification';
 
 const transactions = ref([]);
@@ -18,6 +18,29 @@ onMounted(() => {
   if (savedTransactions) {
     transactions.value = savedTransactions;
   }
+})
+
+// Get total balance
+const total = computed(() => {
+  return transactions.value.reduce((total, transaction) => {
+    return total + transaction.amount;
+  }, 0);
+})
+
+// Get income
+const income = computed(() => {
+  return transactions.value
+    .filter((transaction) => transaction.amount > 0)
+    .reduce((total, transaction) => total + transaction.amount, 0)
+    .toFixed(2);
+})
+
+// Get expense
+const expense = computed(() => {
+  return transactions.value
+    .filter((transaction) => transaction.amount < 0)
+    .reduce((total, transaction) => total + transaction.amount, 0)
+    .toFixed(2);
 })
 
 const handleTransactionsSubmitted = (transactionData) => {
@@ -46,8 +69,8 @@ const saveTransactionsToLocalStorage = () => {
 <template>
   <MainHeader/>  
   <div class="container">
-    <MainBalance :total="100"/>
-    <IncomeExpenses :income="100.00" :expense="50.00"/>
+    <MainBalance :total="total"/>
+    <IncomeExpenses :income="income" :expense="expense"/>
     <TransactionsList :transactions="transactions"/>
     <AddTransaction @transactionSubmitted="handleTransactionsSubmitted"/>
   </div>
