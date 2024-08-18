@@ -20,7 +20,17 @@ body {
   font-size: 18px;
 }
 
+.container {
+  width: 400px;
+  margin: 30px auto;
+}
+
 h1 {
   margin: 0;
   letter-spacing: 1px;
+}
+
+h4 {
+  margin: 0;
+  text-transform: uppercase;
 }
