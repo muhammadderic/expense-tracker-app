@@ -55,6 +55,17 @@ const handleTransactionsSubmitted = (transactionData) => {
   toast.success("Transaction added successfully");
 }
 
+// Delete transaction
+const handleTransactionDeleted = (id) => {
+  transactions.value = transactions.value.filter(
+    (transaction) => transaction.id !== id
+);
+
+  saveTransactionsToLocalStorage();
+
+  toast.success("Transaction deleted successfully");
+}
+
 // Generate a random id
 const generateId = () => {
   return Math.floor(Math.random() * 1000000)
@@ -70,8 +81,14 @@ const saveTransactionsToLocalStorage = () => {
   <MainHeader/>  
   <div class="container">
     <MainBalance :total="total"/>
-    <IncomeExpenses :income="income" :expense="expense"/>
-    <TransactionsList :transactions="transactions"/>
+    <IncomeExpenses 
+      :income="parseFloat(income)" 
+      :expense="parseFloat(expense)"
+    />
+    <TransactionsList 
+      :transactions="transactions"
+      @deleteTransaction="handleTransactionDeleted"
+    />
     <AddTransaction @transactionSubmitted="handleTransactionsSubmitted"/>
   </div>
 </template>
